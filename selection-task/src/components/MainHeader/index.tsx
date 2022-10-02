@@ -1,13 +1,14 @@
 import { Layout, Menu } from 'antd';
 const { Header } = Layout;
+import { Link } from 'react-router-dom';
 
 const navItem = [
   {
-    label: '로그인',
+    label: <Link to="/">로그인</Link>,
     key: 1,
   },
-  { label: '회원가입', key: 2 },
-  { label: '투두리스트', key: 3 },
+  { label: <Link to="/sign-up">회원가입</Link>, key: 2 },
+  { label: <Link to="/todo-list">투두리스트</Link>, key: 3 },
 ];
 const MainHeader = () => {
   const onClickNavItem = ({ item, key, keyPath, domEvent }: any) => {

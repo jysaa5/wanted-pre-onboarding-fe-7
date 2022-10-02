@@ -1,21 +1,25 @@
 import './styles/Antd.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import TodoList from './TodoList';
-import LoginForm from './components/LoginForm';
+import TodoList from './pages/TodoList';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
+import MainHeader from '../src/components/MainHeader';
+import MainFooter from '../src/components/MainFooter';
+import { Layout } from 'antd';
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-        <nav>
-          <Link to="/">로그인</Link>
-          <Link to="/todo-list">투두리스트</Link>
-        </nav>
-        <Routes>
-          <Route path="/"></Route>
-          <Route path="/todo-list" element={<TodoList />}></Route>
-        </Routes>
-        <LoginForm />
+        <Layout>
+          <MainHeader />
+          <Routes>
+            <Route path="/" element={<SignIn />}></Route>
+            <Route path="/sign-up" element={<SignUp />}></Route>
+            <Route path="/todo-list" element={<TodoList />}></Route>
+          </Routes>
+          <MainFooter />
+        </Layout>
       </BrowserRouter>
     </>
   );
