@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './styles/Antd.css';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import TodoList from './TodoList';
+import LoginForm from './components/LoginForm';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <nav>
+          <Link to="/">로그인</Link>
+          <Link to="/todo-list">투두리스트</Link>
+        </nav>
+        <Routes>
+          <Route path="/"></Route>
+          <Route path="/todo-list" element={<TodoList />}></Route>
+        </Routes>
+        <LoginForm />
+      </BrowserRouter>
+    </>
   );
-}
+};
 
 export default App;
