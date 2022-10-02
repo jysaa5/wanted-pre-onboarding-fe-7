@@ -1,0 +1,21 @@
+### /auth/signin
+POST http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000/auth/signin HTTP/1.1
+Content-Type: application/json
+
+
+{
+    "email": "jenny@test.com",
+    "password": "test1234"
+}
+
+
+### /auth/signup
+POST http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000/auth/signup HTTP/1.1
+Content-Type: application/json
+
+
+{
+    "email": "jenny@test.com",
+    "password": "test1234"
+
+}
