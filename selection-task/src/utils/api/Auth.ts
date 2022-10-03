@@ -20,10 +20,12 @@ const createUserAuth = async (params: UserInfo) => {
       email: params.username,
       password: params.password,
     });
-    return response.data;
+    const { data } = response;
+    return data;
   } catch (error) {
     console.log(error);
   }
+  return '';
 };
 
 export { createUserAuth, getAccessTokenBySignIn };

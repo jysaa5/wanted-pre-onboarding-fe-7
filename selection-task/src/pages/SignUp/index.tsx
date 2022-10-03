@@ -1,8 +1,16 @@
+import RegisterForm from 'src/components/RegisterForm';
 import DefaultLayout from 'src/layouts';
-const SignUp = () => {
+import styles from './style.module.scss';
+const SignUp = ({ successRegister }: { successRegister: React.Dispatch<React.SetStateAction<string>> }) => {
   return (
     <div>
-      <DefaultLayout>회원가입</DefaultLayout>
+      <DefaultLayout>
+        <div className={styles['container-form']}>
+          <div className={styles['item-form']}>
+            <RegisterForm successRegister={successRegister} />
+          </div>
+        </div>
+      </DefaultLayout>
     </div>
   );
 };
