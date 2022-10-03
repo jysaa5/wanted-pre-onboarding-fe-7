@@ -7,6 +7,7 @@ const commonAxios: AxiosInstance = axios.create({
   baseURL: 'http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000',
   headers: {
     'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
   },
   //   cancelToken: source.token,
 });

@@ -1,8 +1,9 @@
 import commonAxios from '../../lib/client/commonAxios';
 import { UserInfo } from '../types/UserInfo';
-const getAccessTokenBySignIn = async (params: UserInfo) => {
+
+const createUserAuth = async (params: UserInfo) => {
   try {
-    const response = await commonAxios.post('/auth/signin', {
+    const response = await commonAxios.post('/auth/signup', {
       email: params.username,
       password: params.password,
     });
@@ -14,9 +15,9 @@ const getAccessTokenBySignIn = async (params: UserInfo) => {
   return '';
 };
 
-const createUserAuth = async (params: UserInfo) => {
+const getAccessTokenBySignIn = async (params: UserInfo) => {
   try {
-    const response = await commonAxios.post('/auth/signup', {
+    const response = await commonAxios.post('/auth/signin', {
       email: params.username,
       password: params.password,
     });

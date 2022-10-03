@@ -1,0 +1,31 @@
+### /todos
+POST http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000/todos HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Implbm55QHRlc3QuY29tIiwic3ViIjoxMiwiaWF0IjoxNjY0ODAzNjMzLCJleHAiOjE2NjU0MDg0MzN9.Nq0-ety1sT2SM_lMOJSrxWTK83BOvzZaprGOvC-0v-k
+
+{
+    "todo": "코딩하기"
+}
+
+
+### /todos
+GET http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000/todos HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Implbm55QHRlc3QuY29tIiwic3ViIjoxMiwiaWF0IjoxNjY0ODAzNjMzLCJleHAiOjE2NjU0MDg0MzN9.Nq0-ety1sT2SM_lMOJSrxWTK83BOvzZaprGOvC-0v-k
+
+
+### /todos/:id
+PUT http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000/todos/28 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Implbm55QHRlc3QuY29tIiwic3ViIjoxMiwiaWF0IjoxNjY0ODAzNjMzLCJleHAiOjE2NjU0MDg0MzN9.Nq0-ety1sT2SM_lMOJSrxWTK83BOvzZaprGOvC-0v-k
+
+
+{
+    "todo": "잠자기",
+    "isCompleted": false
+}
+
+
+### /todos/:id
+DELETE http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000/todos/28 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Implbm55QHRlc3QuY29tIiwic3ViIjoxMiwiaWF0IjoxNjY0ODAzNjMzLCJleHAiOjE2NjU0MDg0MzN9.Nq0-ety1sT2SM_lMOJSrxWTK83BOvzZaprGOvC-0v-k
