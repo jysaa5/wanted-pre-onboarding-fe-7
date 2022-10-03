@@ -34,7 +34,7 @@ const App = () => {
               </>
             ) : (
               <>
-                <Route path="/todo" element={<TodoList />}></Route>
+                <Route path="/todo" element={<TodoList accessToken={accessToken} />}></Route>
                 <Route path="/" element={<Navigate replace to="/todo" />} />
               </>
             )}

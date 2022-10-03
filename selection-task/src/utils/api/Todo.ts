@@ -1,5 +1,5 @@
 import commonAxios from '../../lib/client/commonAxios';
-import { Todo, UpdateRequestTodo, TodoInfo } from '../types/TodoInfo';
+import { Todo, UpdateRequestTodo } from '../types/TodoInfo';
 
 const createTodo = async ({ todo }: Todo) => {
   try {
@@ -14,9 +14,13 @@ const createTodo = async ({ todo }: Todo) => {
   return {};
 };
 
-const getTodos = async () => {
+const getTodos = async (accessToken: string) => {
   try {
-    const response = await commonAxios.get('/todos');
+    const response = await commonAxios.get('/todos', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     const { data } = response;
     return data;
   } catch (error) {
