@@ -4,12 +4,13 @@ const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
 console.log('commonAxios >>>', localStorage.getItem('access_token'));
 const commonAxios: AxiosInstance = axios.create({
-  baseURL: 'http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000',
+  // baseURL: 'http://ec2-3-38-135-202.ap-northeast-2.compute.amazonaws.com:8000',
+  baseURL: 'http://localhost:8000',
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('access_token')}`,
   },
-  //   cancelToken: source.token,
+  cancelToken: source.token,
 });
 
 commonAxios.interceptors.request.use((config) => {

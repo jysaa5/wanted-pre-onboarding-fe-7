@@ -17,7 +17,7 @@ const Todo = ({ accessToken }: { accessToken: string }) => {
   };
   const onSearch = async (value: string) => {
     console.log(value);
-    const response = await createTodo({ todo: value });
+    const response = await createTodo(value, accessToken);
     console.log(response);
     const temp = todoList;
     temp.push(response);

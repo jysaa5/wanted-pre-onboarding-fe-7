@@ -1,11 +1,19 @@
 import commonAxios from '../../lib/client/commonAxios';
 import { Todo, UpdateRequestTodo } from '../types/TodoInfo';
 
-const createTodo = async ({ todo }: Todo) => {
+const createTodo = async (todo: string, accessToken: string) => {
   try {
-    const response = await commonAxios.post('/todos', {
-      todo: todo,
-    });
+    const response = await commonAxios.post(
+      '/todos',
+      {
+        todo: todo,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
     const { data } = response;
     return data;
   } catch (error) {
