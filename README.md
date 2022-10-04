@@ -5,6 +5,7 @@
 ## 프로젝트 실행 방법
 ```
 cd selection-task
+yarn install
 yarn start
 ```
 ## 데모 영상
