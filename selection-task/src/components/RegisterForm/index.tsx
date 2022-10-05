@@ -11,7 +11,6 @@ const RegisterForm = ({ successRegister }: { successRegister: React.Dispatch<Rea
   const [disabledSubmit, setDisabledSubmit] = useState(true);
 
   const onValuesChange = (changedValue: { username: string } | { password: string }, allValues: UserInfo) => {
-    console.log(changedValue, allValues);
     validateInput(allValues);
   };
 
@@ -24,12 +23,9 @@ const RegisterForm = ({ successRegister }: { successRegister: React.Dispatch<Rea
   };
 
   const onFinish = async (values: UserInfo) => {
-    console.log('Success:', values);
     const response = await createUserAuth(values);
-    console.log('로그인 결과 >>>', response);
     if (response?.access_token?.length > 0) {
       localStorage.setItem('access_token', response?.access_token as string);
-      console.log(response);
       successRegister(response?.access_token as string);
       navigate('/todo');
     } else {
@@ -40,6 +36,8 @@ const RegisterForm = ({ successRegister }: { successRegister: React.Dispatch<Rea
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
+    alert('아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.');
+    navigate(0);
   };
   return (
     <Form name="basic" labelCol={{ span: 8 }} wrapperCol={{ span: 8 }} initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off" onValuesChange={onValuesChange}>

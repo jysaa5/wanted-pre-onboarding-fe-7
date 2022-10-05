@@ -5,11 +5,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 const MainHeader = ({ accessToken }: { accessToken: string }) => {
   const location = useLocation();
-  console.log('MainHeader1');
   const [selectedKeys, setSelectedKeys] = accessToken.length > 0 ? useState(['todo-1']) : location.pathname === '/sign-up' ? useState(['sign-up-1']) : useState(['login-1']);
   useEffect(() => {
-    console.log('MainHeader2');
-    console.log(accessToken);
     if (accessToken.length > 0) {
       setSelectedKeys(['todo-1']);
     } else {
@@ -19,8 +16,6 @@ const MainHeader = ({ accessToken }: { accessToken: string }) => {
 
   const onClickNavItem = ({ key }: { key: string }) => {
     setSelectedKeys([key]);
-    console.log(key);
-    console.log(selectedKeys);
     if (key === 'logout') {
       localStorage.removeItem('access_token');
       window.location.href = '/';

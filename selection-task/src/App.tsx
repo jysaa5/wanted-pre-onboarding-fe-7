@@ -11,12 +11,7 @@ import { useEffect, useState } from 'react';
 
 const App = () => {
   const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token') === null ? '' : (localStorage.getItem('access_token') as string));
-  console.log('App');
-  console.log('accessToken >>>>', accessToken);
-
   useEffect(() => {
-    console.log('랜더링');
-    console.log('accessToken >>>>', accessToken);
     setAccessToken(localStorage.getItem('access_token') === null ? '' : (localStorage.getItem('access_token') as string));
   }, [localStorage.getItem('access_token')]);
 

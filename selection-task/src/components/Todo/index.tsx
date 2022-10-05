@@ -5,20 +5,16 @@ import { TodoInfo } from '../../utils/types/TodoInfo';
 import styles from './style.module.scss';
 const { Search } = Input;
 const Todo = ({ accessToken }: { accessToken: string }) => {
-  console.log('투두리스트 랜더링');
   const [todoList, setTodoList] = useState<Array<TodoInfo>>([]);
   const [editTodoId, setEditTodoId] = useState(-1);
   const editTodoIsCompleted = useRef(false);
   const editTodo = useRef('');
   const getUserTodoList = async () => {
     const response = await getTodos(accessToken);
-    console.log(response);
     setTodoList(response);
   };
   const onSearch = async (value: string) => {
-    console.log(value);
     const response = await createTodo(value, accessToken);
-    console.log(response);
     const temp = todoList;
     temp.push(response);
     setTodoList(temp);
@@ -30,22 +26,16 @@ const Todo = ({ accessToken }: { accessToken: string }) => {
   };
 
   const submitUpdatedTodo = async () => {
-    const response = await updateTodo({ id: editTodoId, todo: editTodo.current, isCompleted: editTodoIsCompleted.current }, accessToken);
-    console.log(response);
-    // const temp = todoList;
-    // temp.push(response);
-    // setTodoList(temp);
+    await updateTodo({ id: editTodoId, todo: editTodo.current, isCompleted: editTodoIsCompleted.current }, accessToken);
     setEditTodoId(-1);
     getUserTodoList();
   };
 
   const onChangeTodo = (e: any) => {
-    console.log(e);
     editTodo.current = e.target.value;
   };
 
   useEffect(() => {
-    console.log('Todo List');
     if (accessToken.length > 0) {
       getUserTodoList();
     }

@@ -10,8 +10,7 @@ const LoginForm = ({ successLogin }: { successLogin: React.Dispatch<React.SetSta
   const navigate = useNavigate();
   const [disabledSubmit, setDisabledSubmit] = useState(true);
 
-  const onValuesChange = (changedValue: { username: string } | { password: string }, allValues: UserInfo) => {
-    console.log(changedValue, allValues);
+  const onValuesChange = (_: { username: string } | { password: string }, allValues: UserInfo) => {
     validateInput(allValues);
   };
 
@@ -24,12 +23,9 @@ const LoginForm = ({ successLogin }: { successLogin: React.Dispatch<React.SetSta
   };
 
   const onFinish = async (values: UserInfo) => {
-    console.log('Success:', values);
     const response = await getAccessTokenBySignIn(values);
-    console.log('로그인 결과 >>>', response);
     if (response?.access_token?.length > 0) {
       localStorage.setItem('access_token', response?.access_token as string);
-      console.log(response);
       successLogin(response?.access_token as string);
       navigate('/todo');
     } else {
@@ -40,6 +36,8 @@ const LoginForm = ({ successLogin }: { successLogin: React.Dispatch<React.SetSta
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
+    alert('아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.');
+    navigate(0);
   };
 
   return (
