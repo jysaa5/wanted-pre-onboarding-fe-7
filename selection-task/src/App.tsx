@@ -24,7 +24,7 @@ const App = () => {
     <>
       <BrowserRouter>
         <Layout>
-          <MainHeader successLogin={accessToken} />
+          <MainHeader accessToken={accessToken} />
           <Routes>
             {accessToken.length <= 0 ? (
               <>

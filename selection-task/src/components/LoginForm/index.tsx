@@ -31,7 +31,7 @@ const LoginForm = ({ successLogin }: { successLogin: React.Dispatch<React.SetSta
       localStorage.setItem('access_token', response?.access_token as string);
       console.log(response);
       successLogin(response?.access_token as string);
-      navigate('/todo', { replace: true });
+      navigate('/todo');
     } else {
       alert('아이디(로그인 전용 아이디) 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.');
       navigate(0);

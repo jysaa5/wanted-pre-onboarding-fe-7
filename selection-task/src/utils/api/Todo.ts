@@ -37,12 +37,20 @@ const getTodos = async (accessToken: string) => {
   return {};
 };
 
-const updateTodo = async (params: UpdateRequestTodo) => {
+const updateTodo = async (params: UpdateRequestTodo, accessToken: string) => {
   try {
-    const response = await commonAxios.put(`/todos/${params.id}`, {
-      todo: params.todo,
-      isCompleted: params.isCompleted,
-    });
+    const response = await commonAxios.put(
+      `/todos/${params.id}`,
+      {
+        todo: params.todo,
+        isCompleted: params.isCompleted,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
     const { data } = response;
     return data;
   } catch (error) {
@@ -51,9 +59,13 @@ const updateTodo = async (params: UpdateRequestTodo) => {
   return {};
 };
 
-const deleteTodo = async (id: string) => {
+const deleteTodo = async (id: string, accessToken: string) => {
   try {
-    const response = await commonAxios.delete(`/todos/${id}`);
+    const response = await commonAxios.delete(`/todos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return response;
   } catch (error) {
     console.log(error);

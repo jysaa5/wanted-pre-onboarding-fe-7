@@ -10,6 +10,15 @@
   width: 10%;
 }
 
-.switch-isCompleted {
-  width: 15%;
+.todo-content {
+  width: 100%;
+}
+
+.edit-content-contanier {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  width: 100%;
+  .switch-isCompleted {
+    width: 100%;
+  }
 }

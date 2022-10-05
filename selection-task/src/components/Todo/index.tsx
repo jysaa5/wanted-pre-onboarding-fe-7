@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Button, List, Input, Switch } from 'antd';
+import { Button, Col, Input, List, Row, Switch, Tag } from 'antd';
 import { createTodo, deleteTodo, getTodos, updateTodo } from '../../utils/api/Todo';
 import { TodoInfo } from '../../utils/types/TodoInfo';
 import styles from './style.module.scss';
@@ -30,7 +30,7 @@ const Todo = ({ accessToken }: { accessToken: string }) => {
   };
 
   const submitUpdatedTodo = async () => {
-    const response = await updateTodo({ id: editTodoId, todo: editTodo.current, isCompleted: editTodoIsCompleted.current });
+    const response = await updateTodo({ id: editTodoId, todo: editTodo.current, isCompleted: editTodoIsCompleted.current }, accessToken);
     console.log(response);
     // const temp = todoList;
     // temp.push(response);
@@ -61,49 +61,71 @@ const Todo = ({ accessToken }: { accessToken: string }) => {
           dataSource={todoList}
           renderItem={(item: TodoInfo) => (
             <List.Item
-              actions={[
-                <Button
-                  style={item.id === editTodoId ? { display: 'none' } : {}}
-                  key={item.id}
-                  onClick={() => {
-                    setEditTodoId(item.id);
-                    editTodoIsCompleted.current = item.isCompleted;
-                    editTodo.current = item.todo;
-                  }}
-                >
-                  수정
-                </Button>,
-                <Button
-                  style={item.id === editTodoId ? { display: 'none' } : {}}
-                  key={item.id}
-                  onClick={async () => {
-                    const response = await deleteTodo(String(item.id));
-                    console.log(response);
-                    getUserTodoList();
-                  }}
-                >
-                  삭제
-                </Button>,
-              ]}
+              actions={
+                item.id !== editTodoId
+                  ? [
+                      <Button
+                        key={item.id}
+                        onClick={() => {
+                          setEditTodoId(item.id);
+                          editTodoIsCompleted.current = item.isCompleted;
+                          editTodo.current = item.todo;
+                        }}
+                      >
+                        수정
+                      </Button>,
+                      <Button
+                        type="primary"
+                        danger
+                        key={item.id}
+                        onClick={async () => {
+                          const response = await deleteTodo(String(item.id), accessToken);
+                          console.log(response);
+                          getUserTodoList();
+                        }}
+                      >
+                        삭제
+                      </Button>,
+                    ]
+                  : [
+                      <Button type="primary" key={item.id} onClick={submitUpdatedTodo}>
+                        제출
+                      </Button>,
+                      <Button
+                        key={item.id}
+                        onClick={() => {
+                          setEditTodoId(-1);
+                        }}
+                      >
+                        취소
+                      </Button>,
+                    ]
+              }
             >
               {item.id !== editTodoId ? (
                 <>
-                  {item.isCompleted === false ? <div className={styles['list-isCompleted']}>미완료</div> : <div className={styles['list-isCompleted']}>완료</div>}
-                  <div>{item.todo}</div>
+                  {item.isCompleted === false ? (
+                    <div className={styles['list-isCompleted']}>
+                      <Tag color="#f50">미완료</Tag>
+                    </div>
+                  ) : (
+                    <div className={styles['list-isCompleted']}>
+                      <Tag color="#2db7f5">완료</Tag>
+                    </div>
+                  )}
+                  <div className={styles['todo-content']}>{item.todo}</div>
                 </>
               ) : (
-                <>
-                  <Switch className={styles['switch-isCompleted']} checkedChildren="완료" unCheckedChildren="미완료" defaultChecked={item.isCompleted} onChange={onChange} />
-                  <Input defaultValue={item.todo} onChange={onChangeTodo}></Input>
-                  <Button onClick={submitUpdatedTodo}>제출</Button>
-                  <Button
-                    onClick={() => {
-                      setEditTodoId(-1);
-                    }}
-                  >
-                    취소
-                  </Button>
-                </>
+                <div className={styles['edit-content-contanier']}>
+                  <Row align="middle">
+                    <Col>
+                      <Switch className={styles['switch-isCompleted']} checkedChildren="완료" unCheckedChildren="미완료" defaultChecked={item.isCompleted} onChange={onChange} />
+                    </Col>
+                  </Row>
+                  <div>
+                    <Input defaultValue={item.todo} onChange={onChangeTodo} />
+                  </div>
+                </div>
               )}
             </List.Item>
           )}

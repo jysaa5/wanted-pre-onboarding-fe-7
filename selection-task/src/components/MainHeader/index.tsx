@@ -1,44 +1,26 @@
 import { Layout, Menu } from 'antd';
-import React, { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 const { Header } = Layout;
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-const defaultNavItem: Array<{ label: ReactNode | string; key: string }> = [
-  {
-    label: <Link to="/">로그인</Link>,
-    key: '1',
-  },
-  { label: <Link to="/sign-up">회원가입</Link>, key: '2' },
-];
-
-const MainHeader = ({ successLogin }: { successLogin: string }) => {
-  const naviagte = useNavigate();
-  const getNavItems = () => {
-    if (successLogin.length > 0) {
-      return [
-        {
-          label: <Link to="/todo">투두 리스트</Link>,
-          key: '1',
-        },
-        { label: '로그아웃', key: 'logout' },
-      ];
-    } else {
-      return defaultNavItem;
-    }
-  };
-  const [navItems, setNavItems] = useState(getNavItems());
-
+const MainHeader = ({ accessToken }: { accessToken: string }) => {
+  const location = useLocation();
   console.log('MainHeader1');
-
+  const [selectedKeys, setSelectedKeys] = accessToken.length > 0 ? useState(['todo-1']) : location.pathname === '/sign-up' ? useState(['sign-up-1']) : useState(['login-1']);
   useEffect(() => {
     console.log('MainHeader2');
-    console.log(successLogin);
-    setNavItems(getNavItems());
-    console.log('navItems >>>>', navItems);
-  }, [successLogin, localStorage.getItem('access_token')]);
+    console.log(accessToken);
+    if (accessToken.length > 0) {
+      setSelectedKeys(['todo-1']);
+    } else {
+      location.pathname === '/sign-up' ? setSelectedKeys(['sign-up-1']) : setSelectedKeys(['login-1']);
+    }
+  }, [accessToken]);
 
   const onClickNavItem = ({ key }: { key: string }) => {
+    setSelectedKeys([key]);
     console.log(key);
+    console.log(selectedKeys);
     if (key === 'logout') {
       localStorage.removeItem('access_token');
       window.location.href = '/';
@@ -48,7 +30,29 @@ const MainHeader = ({ successLogin }: { successLogin: string }) => {
   return (
     <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} onClick={onClickNavItem} items={navItems} />
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        selectedKeys={selectedKeys}
+        onClick={onClickNavItem}
+        items={
+          accessToken.length > 0
+            ? [
+                {
+                  label: <Link to="/todo">투두 리스트</Link>,
+                  key: 'todo-1',
+                },
+                { label: '로그아웃', key: 'logout' },
+              ]
+            : [
+                {
+                  label: <Link to="/">로그인</Link>,
+                  key: 'login-1',
+                },
+                { label: <Link to="/sign-up">회원가입</Link>, key: 'sign-up-1' },
+              ]
+        }
+      />
     </Header>
   );
 };
